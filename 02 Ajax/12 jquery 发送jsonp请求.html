@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- bootsdn 导入 jquery -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+<body>
+  <button>jquery 发送 jsonp请求</button>
+  <textarea name="" id="" cols="30" rows="10"></textarea>
+  <div class=".d"></div>
+  <script>
+    const btn = document.querySelector('button')
+    const textarea = document.querySelector('textarea')
+    btn.addEventListener('click', () => {
+      $.getJSON('http://127.0.0.1:8000/jquery-jsonp-server?callback=?', (data) => {
+        $('textarea').html(`名称: ${data.name} 年龄: ${data.age}`)
+      })
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- bootsdn 导入 axios -->
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.2/axios.min.js"></script></head>
+<body>
+  <button>axios get</button>
+  <button>axios post</button>
+  <button>axios 通用型方法ajax</button>
+  <script>
+    const btns = document.querySelectorAll('button')
+    // 配置 基础url
+    axios.defaults.baseURL = 'http://127.0.0.1:8000'
+    btns[0].addEventListener('click', () => {
+      // axios get 请求 
+      axios.get('/axios-server', {
+        // url参数
+        params: {
+          id: 100,
+        },
+        // 请求头信息
+        headers: {
+          name: 'andy',
+          age: 20,
+        }
+        // 返回结果为  promise(是一个对象)
+      }).then(value => {
+        console.log(value)
+      })
+    })
+
+    btns[1].addEventListener('click', () => {
+      // url  路径
+      axios.post('/axios-server', {
+        // data 数据
+        username: 'andy',
+        password: '12',
+      }, {
+        // config 配置 
+        params: {
+          id: 300,
+          age: 10,
+        },
+        // 请求头配置
+        headers: {
+          height: 100,
+          weight: 100,
+        }
+      })
+    })
+
+    btns[2].addEventListener('click', () => {
+      axios({
+        // 请求方法
+        methods: 'post',
+        // url
+        url: '/axios-server',
+        // url 参数
+        params: {
+          id: 400,
+        },
+        // 头信息
+        headers: {
+          a: 400,
+          b: 400,
+        },
+        // 请求体参数
+        data: {
+          username: 'andy',
+          password: '1234',
+        },
+      }).then(response => {
+        console.log(response)
+      })
+    })
+
+  </script>
+</body>
+</html>

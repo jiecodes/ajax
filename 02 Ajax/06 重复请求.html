@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button>发送请求 第二次点击取消上次没有完成的请求</button>
+  <script>
+    const btn = document.querySelectorAll('button')
+    let xhr = null;
+    // 标识变量   是否正在发送ajax请求  false表示没有发送
+    let isSending = false; 
+    btn[0].onclick = () => {
+      // ajax 请求
+      // 重新发送请求前  先判断是否有请求 如果有 则取消
+      if (isSending) xhr.abort()
+      // 1 创建对象
+      xhr = new XMLHttpRequest();
+      // 发送请求 修改变量值为true
+      isSending = true;  
+      // 2 初始化 请求和url
+      xhr.open('get', 'http://127.0.0.1:8000/delay')
+      // 3 发送
+      xhr.send()
+      // 4 事件绑定 接收返回的数据
+      // readystate 是 xhr 对象中的属性,表示状态 0 1 2 3 4  0未初始化 1open方法调用完毕 2send方法调用完毕 3服务端返回部分结果 4 服务端返回所有结果
+      xhr.onreadystatechange = () => {
+        // 服务返回的所有结果    xhr.readyState
+        if (xhr.readyState === 4) {
+          // 发送请求成功后 修改变量值为false
+          isSending = false;
+          // 响应返回 200-300 之间返回成功了
+          if (xhr.status >= 200 && xhr.status < 300) {
+            console.log(xhr.status)   // 状态码
+            console.log(xhr.statusText)   // 状态字符串
+            console.log(xhr.getAllResponseHeaders())  // 所有的响应头
+            console.log(xhr.response)         // 响应体 
+          }
+        }
+      }
+    };
+  </script>
+</body>
+</html>

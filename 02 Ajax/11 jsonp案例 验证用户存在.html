@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" placeholder="用户名"> 验证用户是否存在 没有数据库 直接返回没有存在
+  <p></p>
+  <script>
+    const input = document.querySelector('input')
+    const p = document.querySelector('p')
+    // 声明input输入的值 value、
+    let value = null;
+    // 声明函数
+    function handle(data) {
+      // 修改input边框
+      input.style.border = 'solid 1px red'
+      // 修改p标签的内容
+      p.innerHTML = data.msg + '&nbsp;' +value
+    }
+
+    // 事件绑定
+    input.addEventListener('blur',() => {
+      // 获取用户输入值
+      value = '自定义 ' + input.value 
+      // 创建一个script标签
+      const script = document.createElement('script')
+      // 设置 script src属性
+      script.src = 'http://127.0.0.1:8000/input-server'
+      // 把 script标签 插入 body最后面
+      document.body.appendChild(script)
+    })
+  </script>
+</body>
+</html>
